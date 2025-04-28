@@ -1,0 +1,33 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+
+version: 2
+updates:
+  # Keep npm dependencies up to date
+  - package-ecosystem: "npm"
+    directory: "/"
+    # Check the npm registry every day on Tuesday at 18:00  Berlin Standard Time (UTC+09:00)
+    schedule:
+      interval: "dayly"
+      day: "tuesday"
+      time: "18:00"
+      timezone: "europe/berlin"
+# Minimal settings to update dependencies stored in one private registry
+
+version: 2
+registries:
+  dockerhub: # Define access for a private registry
+    type: docker-registry
+    url: registry.hub.docker.com
+    username: octocat
+    password: ${{secrets.DOCKERHUB_PASSWORD}}
+updates:
+  - package-ecosystem: "docker"
+    directory: "/docker-registry/dockerhub"
+    registries:
+      - dockerhub # Allow version updates for dependencies in this registry
+    schedule:
+      interval: "weekly"
